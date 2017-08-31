@@ -136,17 +136,21 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      var colCount = majorDiagonalColumnIndexAtFirstRow;
-      var rowCount;
+      console.log('===> ' + majorDiagonalColumnIndexAtFirstRow);
+      var rowCount = majorDiagonalColumnIndexAtFirstRow;
+      var colCount;
       var temp = [];
       //console.log(majorDiagonalColumnIndexAtFirstRow);
       var n = this.get('n');
       for (var i = 0; i < n; i++) {
-        rowcount = i;
-        if (this._isInBounds(rowcount, colCount)) {
-          temp.push(this.get(rowcount)[colCount]);
+        colCount = i;
+
+        if (this._isInBounds(colCount, rowCount)) {
+          console.log('[' + rowCount + ', ' + colCount + ']' + this.get(colCount)[rowCount]);
+          temp.push(this.get(colCount)[rowCount]);
+          
         }  
-        colCount++; 
+        rowCount++; 
       }
 
       if (temp.length > 0) {
@@ -157,6 +161,16 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      var n = this.get("n");
+      for (var i = -n+2; i < n-1;i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+        
+      }
+
+      return false;
+
       //For this to run correctly we want to make sure every instance of a major diagonal is accounted for.  we sould run the previous helper
       //method on the entire column on the first row.  then we would move over to the next row until we reach the end.
       //edge cases for major diagonal is the bottow left sqaure and top right square as they are the only item.
