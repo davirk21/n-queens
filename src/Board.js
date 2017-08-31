@@ -202,8 +202,12 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      //what i described previous is here.  the previous is to start at the columnIndex at the first row. then use the math equation pattern
-      // to continous count the amount of times 1 apears until we reach the corner of the board. return a boolean if more than 1 is seen.
+      var n = this.get('n');
+      for (var i = 0; i < n + 2; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     }
 
