@@ -74,24 +74,27 @@
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
 
+    conflictCheck: function (array) {
+      var sum = array.reduce(function(a, el) {
+        return a + el;
+        
+      });
+      return sum > 1 ? true : false;
+    },
+    
+
     // ROWS - run from left to right
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) { 
-      var numPieces = this.get(rowIndex).reduce(function(sum, item) {
-        sum += item;
-        return sum;
-      });
-      if (numPieces > 1) {
-        return true;
-      }
-      return false;
+      return this.conflictCheck(this.get(rowIndex));
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      var n = this.attributes.n;
+      var n = this.get('n');
+      //console.log(this.get('n'));
       for (var i = 0; i < n; i++) {
         if (this.hasRowConflictAt(i)) {
           return true;
@@ -109,28 +112,24 @@
     hasColConflictAt: function(colIndex) {
       //console.log(this.get(colIndex));
       var currentCol = [];
-      var n = this.attributes["n"];
-      for (var i = 0; i < n ; i++) {
+      var n = this.get('n');
+      for (var i = 0; i < n; i++) {
         currentCol.push(this.get(i)[colIndex]);
-        
       }
-      let numPieces = currentCol.reduce(function(sum, item) {
-        sum += item;
-        return sum;
-      });
-      if (numPieces > 1) {
-        return true;
-      }
-      return false;
+      return this.conflictCheck(currentCol);
     },
 
     // test if any columns on this board contain conflicts
-    hasAnyColConflicts: function() {
-      //runs the helper function above to see if all columnes are true, if there is a single false, return false. use a for loop/forEach
-      return false; // fixme
+    hasAnyColConflicts: function() { 
+      var temp = [];
+      var n = this.get('n');
+      for (var i = 0; i < n; i++) {
+        temp.push(this.hasColConflictAt(i));
+      }
+      return !(_.every(temp, function(el) {
+        return el === false;
+      }));
     },
-
-
 
     // Major Diagonals - go from top-left to bottom-right
     // --------------------------------------------------------------
