@@ -79,27 +79,33 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      var count = 0;
-
-      console.log(rowIndex);
-        rowIndex.forEach(function(el) { //go through the board at row index, returns a boolean
-        if (el === 1) {
-          count ++;
-        }
+    
+       
+      var currentArray = this.get(rowIndex);
+      var numPieces = currentArray.reduce(function(sum, item) {
+        sum += item;
+        return sum;
       });
+      console.log('this is numPieces', numPieces);
 
-      if (count > 1) {
+      if (numPieces > 1) {
+
         return true;
-      } else {
-        return false;
       }
+      return false;
+      //}
 
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      //runs hasRowConflictAt on all the rowIndexes of the board.  it must all be true or else we return false
-      return false; // fixme
+      var n = this.attributes.n;
+      for (var i = 0; i < n; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
