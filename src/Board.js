@@ -78,23 +78,15 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
-    hasRowConflictAt: function(rowIndex) {
-    
-       
-      var currentArray = this.get(rowIndex);
-      var numPieces = currentArray.reduce(function(sum, item) {
+    hasRowConflictAt: function(rowIndex) { 
+      var numPieces = this.get(rowIndex).reduce(function(sum, item) {
         sum += item;
         return sum;
       });
-      console.log('this is numPieces', numPieces);
-
       if (numPieces > 1) {
-
         return true;
       }
       return false;
-      //}
-
     },
 
     // test if any rows on this board contain conflicts
@@ -115,8 +107,21 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      //this time we see if the columns return a count > 1, if so we return true(theres a conflict) else return false
-      return false; // fixme
+      //console.log(this.get(colIndex));
+      var currentCol = [];
+      var n = this.attributes["n"];
+      for (var i = 0; i < n ; i++) {
+        currentCol.push(this.get(i)[colIndex]);
+        
+      }
+      let numPieces = currentCol.reduce(function(sum, item) {
+        sum += item;
+        return sum;
+      });
+      if (numPieces > 1) {
+        return true;
+      }
+      return false;
     },
 
     // test if any columns on this board contain conflicts
