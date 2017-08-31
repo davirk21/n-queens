@@ -136,6 +136,27 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      var colCount =  majorDiagonalColumnIndexAtFirstRow;
+      var rowCount;
+      
+      
+      var temp = [];
+      //console.log("this is n", this.get("n"));
+      //console.log("this is the begining",majorDiagonalColumnIndexAtFirstRow);
+      var n = this.get("n");
+      for (var i = 0; i < n; i++) {
+        rowcount = i;
+        if (this._isInBounds(rowcount, colCount)) {
+          temp.push(this.get(rowcount)[colCount]);
+          colCount++;
+            
+        }
+          
+      }
+      if (temp.length > 0) {
+        return this.conflictCheck(temp);
+      }
+      //console.log(temp);
       //input: the column index at first row so for a board with {n:4}, it could be 0, 1, 2, or 3.
       //output: boolean to see if count is bigger than 1
       //since we know which column index we are at by doign a major diagonal we know where to look next with a math formula
@@ -143,7 +164,12 @@
       // one of the following (column === last column || row === last row);
       //if we see more than 2 1's in those respective indexes of rows/columns we can see a conflict and return are true, 
       //else we will return false as there are no conflicts.
-      return false; // fixme
+      
+
+      //return false; // fixme
+
+
+
     },
 
     // test if any major diagonals on this board contain conflicts
