@@ -178,8 +178,8 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      console.log('NEW START AFTER CLICKING ON BOARD!!!!');
-      console.log('===> ' + minorDiagonalColumnIndexAtFirstRow);
+      //console.log('NEW START AFTER CLICKING ON BOARD!!!!');
+      //console.log('===> ' + minorDiagonalColumnIndexAtFirstRow);
       var rowCount = minorDiagonalColumnIndexAtFirstRow;
       var colCount;
       var temp = [];
@@ -188,7 +188,7 @@
       for (var i = 0; i < n; i++) {
         colCount = i;
         if (this._isInBounds(colCount, rowCount)) {
-          console.log('[' + rowCount + ', ' + colCount + ']' + this.get(colCount)[rowCount]);
+          //console.log('[' + rowCount + ', ' + colCount + ']' + this.get(colCount)[rowCount]);
           temp.push(this.get(colCount)[rowCount]);
         }
         rowCount--;
